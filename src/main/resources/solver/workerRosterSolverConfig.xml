@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+    <scanAnnotatedClasses/>
+    
+    <scoreDirectorFactory>
+        <easyScoreCalculatorClass>com.exercise.TempBuddy.Solution.WorkerRosteringScoreRules</easyScoreCalculatorClass>
+    </scoreDirectorFactory>
+
+    <termination>
+        <secondsSpentLimit>10</secondsSpentLimit>
+    </termination>
+   
+</solver>
