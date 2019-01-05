@@ -31,14 +31,14 @@ public class WorkerRosteringScoreRules implements EasyScoreCalculator<WorkerRost
 		boolean containWorker = false;
 		LinkedHashSet<String> assignedShifts = new LinkedHashSet<>();
 		LinkedHashSet<String> assignedworkers = new LinkedHashSet<>();
-		List<Double> payratelist = new ArrayList<Double>();
+		List<Double> payRateList = new ArrayList<Double>();
 
-		for (Matching matchaux : workerRoster.getMatchingList()) {
-			if (matchaux.getWorker() != null) {
+		for (Matching payRateOrder : workerRoster.getMatchingList()) {
+			if (payRateOrder.getWorker() != null) {
 
-				payratelist.add(matchaux.getWorker().getPayrate());
+				payRateList.add(payRateOrder.getWorker().getPayrate());
 				Comparator<Double> comparador = Collections.reverseOrder();
-				Collections.sort(payratelist, comparador);
+				Collections.sort(payRateList, comparador);
 			}
 
 		}
@@ -63,7 +63,7 @@ public class WorkerRosteringScoreRules implements EasyScoreCalculator<WorkerRost
 									assignedworkers.add(assignWorker);
 
 								} else {
-									hardScore += 1 + payratelist.indexOf(match.getWorker().getPayrate());
+									hardScore += 1 + payRateList.indexOf(match.getWorker().getPayrate());
 
 								}
 
