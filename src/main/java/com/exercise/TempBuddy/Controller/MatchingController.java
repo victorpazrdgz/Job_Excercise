@@ -99,7 +99,11 @@ public class MatchingController {
 
 			for (int i = 0; i < listMatchigs.size(); i++) {
 
-				if (!listMatchigs.get(i).getWorker().getAvailability().contains(listMatchigs.get(i).getShift().getDay().get(0)))
+				if (listMatchigs.get(i).getShift() != null) {
+					if (!listMatchigs.get(i).getWorker().getAvailability()
+							.contains(listMatchigs.get(i).getShift().getDay().get(0)))
+						isOptimal = false;
+				} else
 					isOptimal = false;
 
 				if (workersId != null) {
@@ -120,16 +124,19 @@ public class MatchingController {
 				return solvedWorkerRoster.getMatchingList();
 			} else {
 				for (int i = 0; i < solvedWorkerRoster.getMatchingList().size(); i++)
-				
-					logger.info("Worker Assigned shift : " + solvedWorkerRoster.getMatchingList().get(i).getWorker().getId() +
-							" Shift Assigned  : " + solvedWorkerRoster.getMatchingList().get(i).getShift().getId());
-				throw new ResponseStatusException( HttpStatus.PARTIAL_CONTENT,"Can't Get an Optimal Solution",new Exception());
+					if (listMatchigs.get(i).getShift() != null)
+						logger.info("Worker Assigned shift : "
+								+ solvedWorkerRoster.getMatchingList().get(i).getWorker().getId()
+								+ " Shift Assigned  : "
+								+ solvedWorkerRoster.getMatchingList().get(i).getShift().getId());
+				throw new ResponseStatusException(HttpStatus.PARTIAL_CONTENT, "Can't Get an Optimal Solution",
+						new Exception());
 			}
 
 		} catch (Exception e) {
 			logger.error("Can't Get an Optimal Solution");
 			e.printStackTrace();
-			throw new ResponseStatusException( HttpStatus.PARTIAL_CONTENT,"Can't Get an Optimal Solution",e);
+			throw new ResponseStatusException(HttpStatus.PARTIAL_CONTENT, "Can't Get an Optimal Solution", e);
 		}
 	}
 }
