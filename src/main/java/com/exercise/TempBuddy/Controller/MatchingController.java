@@ -114,12 +114,13 @@ public class MatchingController {
 								&& listWorkers.size() == listShifts.size())
 							isOptimal = false;
 					}
-					if (isOptimal)
+					if (isOptimal && !workersId.contains(listMatchigs.get(i).getWorker().getId()))
 						workersId.add(listMatchigs.get(i).getWorker().getId());
 
 				}
 			}
-
+            if (workersId.size()!=listWorkers.size())
+            	isOptimal=false;
 			if (isOptimal) {
 				return solvedWorkerRoster.getMatchingList();
 			} else {
