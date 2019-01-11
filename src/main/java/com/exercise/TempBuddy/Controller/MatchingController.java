@@ -105,22 +105,25 @@ public class MatchingController {
 						isOptimal = false;
 				} else
 					isOptimal = false;
+				if (listMatchigs.get(i).getWorker() != null) {
+					if (workersId != null) {
 
-				if (workersId != null) {
+//						for (int k = 0; k < workersId.size(); k++) {
+//
+//							if (workersId.get(k) == listMatchigs.get(i).getWorker().getId()
+//									&& listWorkers.size() == listShifts.size())
+//								isOptimal = false;
+//						}
+//						if (isOptimal && !workersId.contains(listMatchigs.get(i).getWorker().getId()))
+							workersId.add(listMatchigs.get(i).getWorker().getId());
 
-					for (int k = 0; k < workersId.size(); k++) {
-
-						if (workersId.get(k) == listMatchigs.get(i).getWorker().getId()
-								&& listWorkers.size() == listShifts.size())
-							isOptimal = false;
 					}
-					if (isOptimal && !workersId.contains(listMatchigs.get(i).getWorker().getId()))
-						workersId.add(listMatchigs.get(i).getWorker().getId());
-
 				}
 			}
-            if (workersId.size()!=listWorkers.size())
-            	isOptimal=false;
+			if (workersId.size() != listWorkers.size())
+				isOptimal = false;
+			else
+				isOptimal = true;
 			if (isOptimal) {
 				return solvedWorkerRoster.getMatchingList();
 			} else {

@@ -32,7 +32,7 @@ public class Matching {
 		this.shift = shift;
 	}
 
-	@PlanningVariable(valueRangeProviderRefs = { "availableWorkers" })
+	@PlanningVariable(valueRangeProviderRefs = { "availableWorkers" }, nullable = true)
 	public Worker getWorker() {
 		return worker;
 	}
