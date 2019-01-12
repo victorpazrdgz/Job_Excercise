@@ -29,6 +29,7 @@ public class WorkerRosteringScoreRules implements EasyScoreCalculator<WorkerRost
 		int hardScore = 0;
 		int softScore = 0;
 		boolean containWorker = false;
+		LinkedHashSet<String> assignedShiftsDay = new LinkedHashSet<>();
 		LinkedHashSet<String> assignedShifts = new LinkedHashSet<>();
 		LinkedHashSet<String> assignedworkers = new LinkedHashSet<>();
 		List<Double> payRateList = new ArrayList<Double>();
@@ -46,8 +47,8 @@ public class WorkerRosteringScoreRules implements EasyScoreCalculator<WorkerRost
 		for (Matching match : workerRoster.getMatchingList()) {
 
 			if (match.getWorker() != null && match.getShift() != null) {
-
-				String assignShift = match.getShift().getId() + ":";
+				String assignShiftDay=match.getShift().getDay().get(0) +":";
+				String assignShift = match.getShift().getId() + ":" ;
 				String assignWorker = ":" + match.getWorker().getId();
 				if (assignedShifts.contains(assignShift) && assignedworkers.contains(assignWorker)) {
 					hardScore += -1;
@@ -63,10 +64,14 @@ public class WorkerRosteringScoreRules implements EasyScoreCalculator<WorkerRost
 									assignedworkers.add(assignWorker);
 
 								} else {
+									 if (assignedShiftsDay.contains(assignShiftDay))
+											 hardScore+=-100;
+											 
 									hardScore += 1 + payRateList.indexOf(match.getWorker().getPayrate());
 
 								}
-
+								
+								assignedShiftsDay.add(assignShiftDay) ;
 								assignedShifts.add(assignShift);
 								containWorker = true;
 
